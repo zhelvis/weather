@@ -1,12 +1,15 @@
 {
-  "name": "ts-node-template",
+  "name": "@zhelvis/weather",
   "version": "0.0.1",
-  "description": "NodeJS typescript module template",
-  "main": "index.js",
-  "repository": "https://github.com/zhelvis/ts-node-template.git",
+  "description": "cli app for retrieving weather data by city name",
+  "main": "dist/index.js",
+  "repository": "https://github.com/zhelvis/weather.git",
   "author": "Vladimir Zhelvis <zhelvisvladimir@gmail.com>",
   "license": "MIT",
   "private": true,
+  "bin": {
+    "weather": "dist/index.js"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.2",
