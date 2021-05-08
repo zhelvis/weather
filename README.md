@@ -1,2 +1,2 @@
-# ts-node-template
-NodeJS typescript module template
+# weather
+cli app for retrieving weather data by city name
