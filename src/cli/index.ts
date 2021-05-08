@@ -1,38 +1,40 @@
 import { Command, Service, ErrorMessage } from "./types";
+import {
+  displayMetaweatherData,
+  displayOpenweathermapData,
+} from "./displayWeatherData";
 
-export function readInput(args: string[]): void {
+export const helperText = `
+-h — display list of available commands
+-p [service] [city] — retrieve current whether data for city
+`;
+
+export function cli(args: string[]): void {
   const [key, ...params] = args;
 
   switch (key) {
     case Command.HELP:
-      displayHelper();
+      console.log(helperText);
       break;
     case Command.MAIN:
       readParams(params);
       break;
     default:
-      throw new Error(ErrorMessage.COMMAND_TYPE);
+      console.error(ErrorMessage.COMMAND_TYPE);
   }
 }
 
-function displayHelper(): void {
-  console.log(`
-      -h — display list of available commands
-      -p [service] [city] — retrieve current whether data for city
-    `);
-}
-
 function readParams(params: string[]): void {
-  const service = params[0];
+  const [service, city] = params;
 
   switch (service) {
     case Service.METAWEATHER:
-      console.log(params);
+      displayMetaweatherData(city);
       break;
     case Service.OPENWEATHERMAP:
-      console.log(params);
+      displayOpenweathermapData(city);
       break;
     default:
-      throw new Error(ErrorMessage.SERVICE_NAME);
+      console.error(ErrorMessage.SERVICE_NAME);
   }
 }

@@ -39,5 +39,8 @@
     "src/**/*.{js,ts,json}": [
       "node_modules/.bin/eslint --fix --max-warnings=0"
     ]
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
   }
 }
