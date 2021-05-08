@@ -1,6 +1,5 @@
-import { getMetaweatherData } from "../metaweather";
-// import { getOpenweathermapData } from "../openwethermap";
-import { ErrorMessage } from "./types";
+import { getMetaweatherData, getOpenweathermapData } from "../services";
+import { ErrorMessage } from "../types";
 
 export async function displayMetaweatherData(city: string): Promise<void> {
   if (!city) {
@@ -22,7 +21,7 @@ export async function displayOpenweathermapData(city: string): Promise<void> {
   }
 
   try {
-    // console.log(await getOpenweathermapData(city));
+    console.log(await getOpenweathermapData(city));
   } catch (e) {
     console.error(ErrorMessage.OPENWEATHERMAP_NETWORK_ERR);
   }

@@ -1,4 +1,4 @@
-import { Command, Service, ErrorMessage } from "./types";
+import { Command, Service, ErrorMessage } from "../types";
 import {
   displayMetaweatherData,
   displayOpenweathermapData,

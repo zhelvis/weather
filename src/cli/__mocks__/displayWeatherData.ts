@@ -1,4 +1,4 @@
-import { ErrorMessage } from "../types";
+import { ErrorMessage } from "../../types";
 
 export async function displayMetaweatherData(city: string): Promise<void> {
   if (!city) {

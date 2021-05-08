@@ -1,5 +1,5 @@
 import { cli, helperText } from "../index";
-import { Command, ErrorMessage, Service } from "../types";
+import { Command, ErrorMessage, Service } from "../../types";
 
 jest.mock("../displayWeatherData");
 
