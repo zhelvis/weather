@@ -20,10 +20,17 @@ function transformRawMetaWeatherDataToWeatherView(
     wind_speed, //  Miles per hour
   } = consolidated_weather[0]; // The first element of consolidated weather array is "Today" data
 
+  const minTemp = typeof min_temp === "number" ? min_temp : "No Data";
+  const maxTemp = typeof max_temp === "number" ? max_temp : "No Data";
+  const windSpeed =
+    typeof wind_speed === "number"
+      ? convertMilesPerHourToMetersPerSeconds(wind_speed)
+      : "No Data";
+
   return {
-    weather_state_name: weather_state_name,
-    min_temp: min_temp,
-    max_temp: max_temp,
-    wind_speed: convertMilesPerHourToMetersPerSeconds(wind_speed),
+    weather_state_name: weather_state_name || "No Data",
+    min_temp: minTemp,
+    max_temp: maxTemp,
+    wind_speed: windSpeed,
   };
 }
