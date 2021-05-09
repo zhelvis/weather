@@ -1,37 +1,11 @@
-import axios from "axios";
-import {
-  MetaWeatherSearchRead,
-  MetaWeatherDataRead,
-  WeatherView,
-} from "../types";
-import { METAWEATHER_API_URL } from "../config";
+import { MetaWeatherDataRead, WeatherView } from "../types";
 import { convertMilesPerHourToMetersPerSeconds } from "../utils";
+import { getMetaWeatherLocationId, getRawMetaWeatherData } from "./requests";
 
 export async function getMetaweatherData(city: string): Promise<WeatherView> {
-  const id = await getLocationId(city);
-  const data = await getRawMetaweatherData(id);
+  const id = await getMetaWeatherLocationId(city);
+  const data = await getRawMetaWeatherData(id);
   return transformRawMetaWeatherDataToWeatherView(data);
-}
-
-async function getLocationId(city: string): Promise<number> {
-  const responce = await axios.get<MetaWeatherSearchRead[]>(
-    `${METAWEATHER_API_URL}/api/location/search`,
-    {
-      params: {
-        query: city,
-      },
-    }
-  );
-
-  return responce.data[0].woeid;
-}
-
-async function getRawMetaweatherData(id: number): Promise<MetaWeatherDataRead> {
-  const responce = await axios.get<MetaWeatherDataRead>(
-    `${METAWEATHER_API_URL}/api/location/${id}`
-  );
-
-  return responce.data;
 }
 
 function transformRawMetaWeatherDataToWeatherView(
@@ -47,11 +21,9 @@ function transformRawMetaWeatherDataToWeatherView(
   } = consolidated_weather[0]; // The first element of consolidated weather array is "Today" data
 
   return {
-    weather_state_name: weather_state_name || "No data",
-    min_temp: min_temp || "No data",
-    max_temp: max_temp || "No data",
-    wind_speed: wind_speed
-      ? convertMilesPerHourToMetersPerSeconds(wind_speed)
-      : "No data",
+    weather_state_name: weather_state_name,
+    min_temp: min_temp,
+    max_temp: max_temp,
+    wind_speed: convertMilesPerHourToMetersPerSeconds(wind_speed),
   };
 }

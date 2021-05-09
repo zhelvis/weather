@@ -2,7 +2,7 @@
 import { cli, helperText } from "../index";
 import { Command, ErrorMessage, Service } from "../../types";
 
-jest.mock("../displayWeatherData");
+jest.mock("../displayData");
 
 describe("Test Input Handling", () => {
   test("Call helper", () => {

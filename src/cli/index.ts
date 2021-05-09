@@ -2,7 +2,7 @@ import { Command, Service, ErrorMessage } from "../types";
 import {
   displayMetaweatherData,
   displayOpenweathermapData,
-} from "./displayWeatherData";
+} from "./displayData";
 
 export const helperText = `
 -h — display list of available commands
