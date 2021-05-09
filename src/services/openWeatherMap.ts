@@ -1,21 +1,20 @@
 import axios from "axios";
 import { WeatherView, OpenWeatherMapDataRead } from "../types";
 import { OPENWEATHERMAP_API_URL, OPENWEATHERMAP_API_KEY } from "../config";
+import {
+  convertKelvinToCelsius,
+  getMostFrequentElementOfStringArray,
+  purgeNullsFromArray,
+} from "../utils";
 
 export async function getOpenweathermapData(
   city: string
 ): Promise<WeatherView> {
-  const { weather, main, wind } = await getRawWeatherData(city);
-
-  return {
-    weather_state_name: weather[0].main,
-    min_temp: convertKelvinToCelsius(main.temp_min),
-    max_temp: convertKelvinToCelsius(main.temp_max),
-    wind_speed: wind.speed,
-  };
+  const data = await getRawOpenWeatherMapData(city);
+  return transformRawMOpenWeatherMapDataToWeatherView(data);
 }
 
-async function getRawWeatherData(
+async function getRawOpenWeatherMapData(
   city: string
 ): Promise<OpenWeatherMapDataRead> {
   const responce = await axios.get<OpenWeatherMapDataRead>(
@@ -30,6 +29,23 @@ async function getRawWeatherData(
   return responce.data;
 }
 
-function convertKelvinToCelsius(kelvin: number) {
-  return kelvin - 273.15;
+function transformRawMOpenWeatherMapDataToWeatherView(
+  data: OpenWeatherMapDataRead
+): WeatherView {
+  const { weather, main, wind } = data;
+
+  const weatherStateNameArr = purgeNullsFromArray<string>(
+    weather.map((el) => el.main)
+  );
+
+  const frequentWeatherStateName = getMostFrequentElementOfStringArray(
+    weatherStateNameArr
+  );
+
+  return {
+    weather_state_name: frequentWeatherStateName || "No Data",
+    min_temp: convertKelvinToCelsius(main.temp_min),
+    max_temp: convertKelvinToCelsius(main.temp_max),
+    wind_speed: wind.speed,
+  };
 }
