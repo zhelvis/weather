@@ -5,8 +5,19 @@ import {
 } from "./displayData";
 
 export const helperText = `
--h — display list of available commands
--p [service] [city] — retrieve current whether data for city
+cli: 
+
+    -h                      display helper text
+    -p [service] [city]     retrieve current whether data for city
+
+list of services:
+
+    metaweather
+    openweathermap
+
+example:
+
+    weather -p metaweather moscow
 `;
 
 export function cli(args: string[]): void {
