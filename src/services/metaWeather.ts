@@ -1,12 +1,12 @@
-import { MetaWeatherDataRead, WeatherView } from "../types";
+import { MetaWeatherDataRead, WeatherView, WeatherService } from "../types";
 import { convertMilesPerHourToMetersPerSeconds } from "../utils";
 import { getMetaWeatherLocationId, getRawMetaWeatherData } from "./requests";
 
-export async function getMetaweatherData(city: string): Promise<WeatherView> {
+export const getMetaweatherData: WeatherService = async (city) => {
   const id = await getMetaWeatherLocationId(city);
   const data = await getRawMetaWeatherData(id);
   return transformRawMetaWeatherDataToWeatherView(data);
-}
+};
 
 function transformRawMetaWeatherDataToWeatherView(
   data: MetaWeatherDataRead

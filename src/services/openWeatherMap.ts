@@ -1,4 +1,4 @@
-import { WeatherView, OpenWeatherMapDataRead } from "../types";
+import { WeatherView, OpenWeatherMapDataRead, WeatherService } from "../types";
 import { getRawOpenWeatherMapData } from "./requests";
 import {
   convertKelvinToCelsius,
@@ -6,12 +6,10 @@ import {
   purgeNullsFromArray,
 } from "../utils";
 
-export async function getOpenweathermapData(
-  city: string
-): Promise<WeatherView> {
+export const getOpenweathermapData: WeatherService = async (city) => {
   const data = await getRawOpenWeatherMapData(city);
   return transformRawMOpenWeatherMapDataToWeatherView(data);
-}
+};
 
 function transformRawMOpenWeatherMapDataToWeatherView(
   data: OpenWeatherMapDataRead
