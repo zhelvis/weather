@@ -15,7 +15,7 @@ export const displayWeatherData: AsyncCliAction = async (params) => {
 
   const [serviceName, city] = params;
 
-  const weatherService = services.get(serviceName as ServiceName);
+  const weatherService = services[serviceName as ServiceName];
 
   if (!weatherService) {
     console.error(ErrorMessage.INVALID_SERVICE_NAME);
