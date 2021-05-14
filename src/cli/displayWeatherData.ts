@@ -23,6 +23,6 @@ export const displayWeatherData: AsyncCliAction = async (params) => {
   try {
     console.log(await weatherService(city));
   } catch (e) {
-    console.error(ErrorMessage.NETWORK_ERR);
+    console.error(e.message);
   }
 };
