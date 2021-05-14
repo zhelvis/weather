@@ -101,6 +101,7 @@ src
  |--utils // helpers functions
  |index.ts // entry point
  |config.ts // shared constants
+ |errors.ts // custom errors
 
 ```
 
